@@ -1,57 +1,58 @@
 <template>
 <div class="">
     <nav class="px-3 navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
-        事求人開放資料地圖
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="cityDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                    工作地
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="cityDropdown">
-                    <li v-for="[city, count] of cityHash" :key="city">
-                        <a class="dropdown-item dropitem" href="#" @click="cityClicked($event,city)">{{city}}({{count}})</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="normalDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                    行政類
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="normalDropdown">
-                    <li v-for="[sysName, count] of normalSysHash" :key="sysName" >
-                        <a class="dropdown-item dropitem" href="#" @click="sysNameClicked($event,sysName)">{{sysName}}({{count}})</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item dropdown ">
-                <a class="nav-link dropdown-toggle" href="#" id="techDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                技術類
-                </a>
-                <ul class="dropdown-menu " aria-labelledby="techDropdown">
-                    <li v-for="[sysName, count] of techSysHash" :key="sysName">
-                        <a class="dropdown-item dropitem" href="#" @click="sysNameClicked($event,sysName)">{{sysName}}({{count}})</a>
-                    </li>
-                </ul>
-            </li>
-        <!-- <li class="nav-item">
-            <a class="nav-link" href="#">最新消息</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">聯絡我們</a>
-        </li> -->
-        </ul>
-        <form class="d-flex align-items-center">
-            <div class="me-3 text-light">{{updateDate}}</div>
-            <a href="#" class="btn btn-info">關於</a>
-        </form>
-    </div>
-</nav>
+
+
+        <a class="navbar-brand" href="#">
+            事求人開放資料地圖
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="cityDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                        工作地
+                    </a>
+                    <ul class="dropdown-menu scrolly" aria-labelledby="cityDropdown">
+                        <li v-for="[city, count] of cityHash" :key="city">
+                            <a class="dropdown-item dropitem" href="#" @click="cityClicked($event,city)">{{city}}({{count}})</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="normalDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                        行政類
+                    </a>
+                    <ul class="dropdown-menu scrolly" aria-labelledby="normalDropdown">
+                        <li v-for="[sysName, count] of normalSysHash" :key="sysName" >
+                            <a class="dropdown-item dropitem" href="#" @click="sysNameClicked($event,sysName)">{{sysName}}({{count}})</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle" href="#" id="techDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                    技術類
+                    </a>
+                    <ul class="dropdown-menu scrolly" aria-labelledby="techDropdown">
+                        <li v-for="[sysName, count] of techSysHash" :key="sysName">
+                            <a class="dropdown-item dropitem" href="#" @click="sysNameClicked($event,sysName)">{{sysName}}({{count}})</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center justify-content-between">
+                <a href="#" class="btn btn-outline-secondary me-2">關於</a>
+                <div class="me-2 text-light">
+                    {{ updateDate }}
+                </div>
+            </div>
+        </div>
+
+
+        
+    </nav>
 </div>
 
     
@@ -74,7 +75,7 @@
     axios.get(apiUrl)
     .then(response => {
         // 處理成功的回應
-        console.log('回應數據:', response.data);
+        // console.log('回應數據:', response.data);
         updateDate.value = `資料時間:${response.data}`
     })
     .catch(error => {
@@ -139,11 +140,14 @@
 </script>
 
 <style scoped>
-.box{
-    padding: 30px;
-}
-.dropitem{
-    font-size: 0.9rem;
-}
+    .dropitem{
+        font-size: 0.95rem;
+    }
+    .scrolly{
+        scrollbar-width: thin;
+        scrollbar-color: #888 #f1f1f1;
+        overflow-y: scroll;
+        max-height: 65vh;
+    }
 
 </style>

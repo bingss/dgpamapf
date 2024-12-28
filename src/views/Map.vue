@@ -2,11 +2,13 @@
 <template>
 
 
-<div class="spinner-border align-center loading" v-if="isLoading" >
-  <span class="visually-hidden">Loading...</span>
-</div>
+  <div class="spinner-border align-center loading" v-if="isLoading" >
+    <span class="visually-hidden">Loading...</span>
+  </div>
+
   <ol-map
     ref="map"
+    :controls="[]"
     :class="{ 'cursor-pointer': isOnPoint }"
     class="vh-100 ">
 
@@ -73,7 +75,8 @@
     </ol-vector-layer>
 
 
-    <ol-rotate-control></ol-rotate-control>
+    <ol-attribution-control />
+      <!-- <ol-rotate-control></ol-rotate-control> -->
       <ol-interaction-link />
     </ol-map>
 
@@ -89,7 +92,7 @@
     import { Circle, Fill, Stroke, Style,Text } from "ol/style";
     import { GeoJSON } from "ol/format";
     import { SelectEvent } from 'ol/interaction/Select';
-    import { ref, inject,computed, onMounted, onUnmounted,watch  } from "vue";
+    import { ref, inject, onMounted, onUnmounted } from "vue";
     import {View} from 'ol';
     import Feature from 'ol/Feature';
     import { VectorSourceEvent } from 'ol/source/Vector';
@@ -100,8 +103,7 @@
     const projection = ref("EPSG:4326");
     const zoom = ref(8);
     const rotation = ref(0);
-
-
+    
     //WMTS地圖
     const opacity = ref(1);
     // const geojsonUrl = ref("http://localhost:3000/0");
@@ -223,14 +225,6 @@
       
     };
 
-    // const mapClickd = (event : MapEvent) =>{
-    //   //已選全部不觸發事件
-    //   if(selectedFeatures.length === allFeatures.length) return;
-    //   selectedFeatureIds.value.clear();
-    //   selectedFeatures = []
-    //   eventBus.emit('map-job-select', allFeatures);
-    // }
-
     // 處理Cluster滑鼠hover事件
     const hoverConditions = inject("ol-selectconditions");
     const hoverdCondition = hoverConditions.pointerMove;
@@ -305,6 +299,7 @@
         eventBus.emit('job-loaded-updated', allFeatures);
         //載入完畢後傳送至Side組件
         eventBus.emit('map-job-select', allFeatures);
+
     };
 
     //Side點選事件Zoom到該Feature
@@ -352,29 +347,23 @@
 
 
 <style scoped>
- @import "vue3-openlayers/styles.css";
-.ol-map {
-  position: relative;
-}
-.cursor-pointer {
-  cursor: pointer;
-}
-/* 地圖載入進度條 */
-.loading {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  /* width: 80px;
-  height: 80px; */
-  margin-top: -40px;
-  margin-left: -40px;
-} 
-/*
-@keyframes spinner {
-  to {
-    transform: rotate(360deg);
+  @import "vue3-openlayers/styles.css";
+  .ol-map {
+    position: relative;
+  }
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  /* 地圖載入進度條 */
+  .loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* width: 80px;
+    height: 80px; */
+    margin-top: -40px;
+    margin-left: -40px;
+    z-index:1080
   } 
-}*/
-
 
 </style>

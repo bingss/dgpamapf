@@ -1,7 +1,7 @@
 <template>
 
 
-    <div class="border-bottom text-center py-2">
+    <div class="border-bottom text-center py-2 bg-light">
         {{selectedJobCluster?.length || 0}}筆資料
 
     </div>
@@ -12,7 +12,7 @@
                     <div class="card-body jobitem ">
                         <div class="d-flex justify-content-between">
                             <h5 class="card-title fs-6"><a href="#" class="text-decoration-none fw-bold">{{feature.get('orG_NAME')}}</a></h5>
-                            <span class="text-muted">{{feature.get('datE_FROM')}}~{{feature.get('datE_TO')}}</span>
+                            <span class="text-muted">{{feature.get('datE_FROM').substring(5)}}~{{feature.get('datE_TO').substring(5)}}</span>
                         </div>
                         <h6 class="card-subtitle mb-1 text-muted">{{feature.get('sysnam')}}/{{feature.get('title')}}/{{feature.get('ranK_START')}}-{{feature.get('ranK_END')}}職等</h6>
 
@@ -60,10 +60,10 @@
 </script>
 
 <style scoped>
-.jobitem:hover,
-.jobitem.active{
-    background-color: #ffeedf;
-    cursor: pointer;
-}
+    .jobitem:hover,
+    .jobitem.active{
+        background-color: #ffeedf;
+        cursor: pointer;
+    }
 
 </style>
