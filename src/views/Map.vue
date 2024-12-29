@@ -21,63 +21,63 @@
       @change:center="centerChanged"
       @change:resolution="resolutionChanged"
       @change:rotation="rotationChanged"/>  -->
-    <ol-view
-      ref="view"
-      :center="center"
-      :rotation="rotation"
-      :zoom="zoom"
-      :projection="projection"/> 
-    <!-- WMTS底圖:台灣通用電子地圖 -->
-    <ol-tile-layer>
-      <ol-source-wmts
-        :attributions="wmtsAttribution"
-        :url="wmtsUrl"
-        :matrixSet="wmtsMatrixSet"
-        :format="wmtsFormat"
-        :layer="wmtsLayerName"
-        :styles="wmtsStyleName"
-      ></ol-source-wmts>
-    </ol-tile-layer>
+      <ol-view
+        ref="view"
+        :center="center"
+        :rotation="rotation"
+        :zoom="zoom"
+        :projection="projection"/> 
+      <!-- WMTS底圖:台灣通用電子地圖 -->
+      <ol-tile-layer>
+        <ol-source-wmts
+          :attributions="wmtsAttribution"
+          :url="wmtsUrl"
+          :matrixSet="wmtsMatrixSet"
+          :format="wmtsFormat"
+          :layer="wmtsLayerName"
+          :styles="wmtsStyleName"
+        ></ol-source-wmts>
+      </ol-tile-layer>
 
-    <!-- Cluster點選設定 -->
-    <ol-interaction-clusterselect
-      @select="clusterClicked"
-      :condition="clickCondition"
-      :pointRadius="20"
-      :featureStyle="noStyle">
-      <ol-style :overrideStyleFunction="pointClickedStyleFn"></ol-style>
-    </ol-interaction-clusterselect>
-
-
-    <!-- Cluster滑鼠hover設定-->
-    <ol-interaction-clusterselect
-      @select="featureHovered"
-      :condition="hoverdCondition"
-      :pointRadius="20"
-      :featureStyle="noStyle">
-      <ol-style :overrideStyleFunction="pointHoveredStyleFn"></ol-style>
-    </ol-interaction-clusterselect>
-
-    <!-- JOB:GeoJSON圖層 -->
-    <ol-vector-layer>
-      <ol-source-cluster
-        ref="jobClusterSource"
-        :distance="clusterDistance"
-        :geometry-function="clusterGeometryFunction">
-        <ol-source-vector 
-          ref="jobVectorSource"
-          :url="geojsonUrl"
-          :format="geoJson"
-          @featuresloadend="onFeaturesLoadEnd">
-        </ol-source-vector>
-        <ol-style :overrideStyleFunction="pointStyleFn"></ol-style>
-      </ol-source-cluster>
-    </ol-vector-layer>
+      <!-- Cluster點選設定 -->
+      <ol-interaction-clusterselect
+        @select="clusterClicked"
+        :condition="clickCondition"
+        :pointRadius="20"
+        :featureStyle="noStyle">
+        <ol-style :overrideStyleFunction="pointClickedStyleFn"></ol-style>
+      </ol-interaction-clusterselect>
 
 
-    <ol-attribution-control />
-      <ol-rotate-control></ol-rotate-control>
+      <!-- Cluster滑鼠hover設定-->
+      <ol-interaction-clusterselect
+        @select="featureHovered"
+        :condition="hoverdCondition"
+        :pointRadius="20"
+        :featureStyle="noStyle">
+        <ol-style :overrideStyleFunction="pointHoveredStyleFn"></ol-style>
+      </ol-interaction-clusterselect>
+
+      <!-- JOB:GeoJSON圖層 -->
+      <ol-vector-layer>
+        <ol-source-cluster
+          ref="jobClusterSource"
+          :distance="clusterDistance"
+          :geometry-function="clusterGeometryFunction">
+          <ol-source-vector 
+            ref="jobVectorSource"
+            :url="geojsonUrl"
+            :format="geoJson"
+            @featuresloadend="onFeaturesLoadEnd">
+          </ol-source-vector>
+          <ol-style :overrideStyleFunction="pointStyleFn"></ol-style>
+        </ol-source-cluster>
+      </ol-vector-layer>
+
+      <ol-rotate-control/>
+      <ol-attribution-control />
       <ol-interaction-link />
+
     </ol-map>
 
 <!--  <ul style="position:absolute; bottom: 0;">
@@ -348,10 +348,11 @@
 
 <style scoped>
   @import "vue3-openlayers/styles.css";
-  .ol-map {
+  /* .ol-map {
     position: relative;
-  }
+  } */
   .cursor-pointer {
+    position: relative;
     cursor: pointer;
   }
   /* 地圖載入進度條 */
@@ -365,4 +366,5 @@
     margin-left: -40px;
     z-index:1080
   } 
+
 </style>
