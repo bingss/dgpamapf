@@ -2,7 +2,8 @@
 
 [事求人開放資料地圖網址](https://agreeable-island-01a306f00.4.azurestaticapps.net)
 
-<img src="https://github.com/bingss/dgpamapf/blob/main/%E5%AF%A6%E9%9A%9B%E9%A0%81%E9%9D%A2.png" height="65%" width="65%" />
+<img src="https://github.com/bingss/dgpamapf/blob/main/%E5%AF%A6%E9%9A%9B%E9%A0%81%E9%9D%A2.png" height="65%" width="65%" /> <img src="https://github.com/bingss/dgpamapf/blob/main/%E5%AF%A6%E9%9A%9B%E9%A0%81%E9%9D%A2_%E6%89%8B%E6%A9%9F%E6%9D%BF.png" height="20%" width="20%" />
+
 
  - 每日定時爬取人事行政總處事求人網站職缺開放資料，並轉為坐標資訊
  - 將職缺位置視覺化，位置分佈情形一目了然
