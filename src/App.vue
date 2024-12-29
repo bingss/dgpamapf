@@ -2,10 +2,10 @@
     <!-- html -->
 
     <div class="container-fluid g-0">
-        <div class="fixed-top">
-            <Header style=" z-index : 1100"></Header>
+        <div class="my-fixed-top">
+            <Header></Header>
         </div>
-        <div class="row-cols-1 row-cols-lg-12 gx-0 position-relative d-flex flex-lg-row flex-column" style="padding-top: 55px;">
+        <div class="row-cols-1 row-cols-lg-12 gx-0 position-relative d-flex flex-lg-row flex-column " style="padding-top: 55px;">
             <div class="col-lg-9 position-fixed p-0 m-0" style="position:absolute; top: 0;">
                 <Map></Map>
             </div>
@@ -31,7 +31,13 @@
 </script>
 
 <style scoped>
-
+    .my-fixed-top {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1055;
+    }
     @media only screen and (max-width: 991px) {
         .overflow-y-auto {
             scrollbar-width: thin;
@@ -42,7 +48,6 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            z-index: 1000;
             max-height: 35vh;
             overflow-y: scroll;
         }

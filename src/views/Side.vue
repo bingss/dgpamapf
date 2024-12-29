@@ -11,7 +11,7 @@
                 <div class="card border-start-0 border-end-0 border-top-0 rounded-0" @click="cardClick($event, String(feature.getId()) )">
                     <div class="card-body jobitem ">
                         <div class="d-flex justify-content-between">
-                            <h5 class="card-title fs-6"><a href="#" class="text-decoration-none fw-bold">{{feature.get('orG_NAME')}}</a></h5>
+                            <h5 class="card-title fs-6"><a href="#"  class="text-decoration-none fw-bold" @click="cardClick($event, String(feature.getId()) )">{{feature.get('orG_NAME')}}</a></h5>
                             <span class="text-muted">{{feature.get('datE_FROM').substring(5)}}~{{feature.get('datE_TO').substring(5)}}</span>
                         </div>
                         <h6 class="card-subtitle mb-1 text-muted">{{feature.get('sysnam')}}/{{feature.get('title')}}/{{feature.get('ranK_START')}}-{{feature.get('ranK_END')}}職等</h6>

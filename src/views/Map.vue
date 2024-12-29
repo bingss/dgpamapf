@@ -76,7 +76,7 @@
 
 
     <ol-attribution-control />
-      <!-- <ol-rotate-control></ol-rotate-control> -->
+      <ol-rotate-control></ol-rotate-control>
       <ol-interaction-link />
     </ol-map>
 
@@ -365,5 +365,4 @@
     margin-left: -40px;
     z-index:1080
   } 
-
 </style>
