@@ -1,8 +1,6 @@
 <template>
 <div class="">
     <nav class="px-3 navbar navbar-expand-lg navbar-dark bg-dark">
-
-
         <a class="navbar-brand" href="#">
             事求人開放資料地圖
         </a>
@@ -28,7 +26,7 @@
                     <ul class="dropdown-menu scrolly" aria-labelledby="normalDropdown">
                         <li v-for="[sysName, count] of normalSysHash" :key="sysName" >
                             <a class="dropdown-item dropitem" href="#" @click="sysNameClicked($event,sysName)">{{sysName}}({{count}})</a>
-                            
+                             
                         </li>
                     </ul>
                 </li>
@@ -55,10 +53,10 @@
         <div class="modal" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true" >
             <div class="modal-dialog">
                 <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title fw-bold" id="aboutModalLabel">事求人開放資料地圖<span class="d-none d-lg-inline">-公務人員版的104職缺地圖</span></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+                    <div class="modal-header">
+                        <h5 class="modal-title fw-bold" id="aboutModalLabel">事求人開放資料地圖<span class="d-none d-lg-inline">-公務人員版的104職缺地圖</span></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
                     <div class="modal-body">
                         <p class="h6">使用說明：</p>
                         <ul>
@@ -80,13 +78,12 @@
                         </ul>
                         <p>原始碼詳見<a href="https://github.com/bingss/dgpamapf" target="_blank" rel="noreferrer noopener">GitHub</a></p>
                     </div>
+                </div>  
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
-    </div>
-        
     </nav>
 
 </div>
