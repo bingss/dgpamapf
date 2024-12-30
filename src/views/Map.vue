@@ -26,7 +26,8 @@
         :center="center"
         :rotation="rotation"
         :zoom="zoom"
-        :projection="projection"/> 
+        :projection="projection"
+        :enableRotation="false"/> 
       <!-- WMTS底圖:台灣通用電子地圖 -->
       <ol-tile-layer>
         <ol-source-wmts
@@ -68,7 +69,8 @@
             ref="jobVectorSource"
             :url="geojsonUrl"
             :format="geoJson"
-            @featuresloadend="onFeaturesLoadEnd">
+            @featuresloadend="onFeaturesLoadEnd"
+            @featuresloaderror="onFeaturesLoadError">
           </ol-source-vector>
           <ol-style :overrideStyleFunction="pointStyleFn"></ol-style>
         </ol-source-cluster>
@@ -97,6 +99,7 @@
     import Feature from 'ol/Feature';
     import { VectorSourceEvent } from 'ol/source/Vector';
     import eventBus from '@/utils/eventBus'
+import type BaseEvent from "ol/events/Event";
 
     //地圖基本設定
     const center = ref([121, 23.5]);
@@ -272,6 +275,7 @@
     const refreshCluster = () => {
       if (jobClusterSource.value) {
         jobClusterSource.value.source.refresh()
+
       }
     }
 
@@ -314,6 +318,10 @@
       }
     }
 
+    const onFeaturesLoadError = (e : BaseEvent)=>{
+      isLoading.value = false;
+      alert('載入圖資錯誤')
+    }
     // const currentCenter = ref(center.value);
     // const currentZoom = ref(zoom.value);
     // const currentRotation = ref(rotation.value);

@@ -11,6 +11,7 @@
     "type-check": "vue-tsc --build"
   },
   "dependencies": {
+    "@types/bootstrap": "^5.2.10",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "lodash": "^4.17.21",
