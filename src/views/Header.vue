@@ -14,7 +14,7 @@
                         工作地<span class="badge bg-danger rounded-pill ms-1" v-show="cityActiveCount">{{cityActiveCount}}</span>
                     </a>
                     <ul class="dropdown-menu scrolly" aria-labelledby="cityDropdown">
-                        <li v-for="(city) of cityList" :key="city">
+                        <li v-for="[city, count] of cityHash" :key="city">
                             <a class="dropdown-item dropitem" href="#" @click="cityClicked($event,city)">{{city}}</a>
                         </li>
                     </ul>
@@ -112,8 +112,7 @@
     });
 
 
-    // const cityHash = ref(new Map())
-    const cityList = ref(new Array())
+    const cityHash = ref(new Map())
     const normalSysHash = ref(new Map())
     const techSysHash = ref(new Map())
     
@@ -124,12 +123,12 @@
         // JobArray分類:工作縣市,行政技術職系
         for (let feature of jobFeatureArray.value) {
             let city = feature.get('worK_PLACE_TYPE')
-            cityList.value.push(city)
-            // if (cityHash.value.has(city)) {
-            //     cityHash.value.set(city, cityHash.value.get(city) + 1);
-            // } else {
-            //     cityHash.value.set(city, 1);
-            // }
+            
+            if (cityHash.value.has(city)) {
+                cityHash.value.set(city, cityHash.value.get(city) + 1);
+            } else {
+                cityHash.value.set(city, 1);
+            }
 
             let sysName = feature.get('sysnam')
             if (normalSysSet.has(sysName)) {
@@ -160,7 +159,8 @@
         let currentSysName =target.textContent?.split('(')[0]
         if(!currentSysName) return
         if (normalSysSet.has(currentSysName))
-        {cityList
+        {
+            
             //行政職系
             normalSysActiveCount.value = target.classList.contains('active') ? normalSysActiveCount.value-1:normalSysActiveCount.value+1;
         }
