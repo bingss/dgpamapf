@@ -14,7 +14,7 @@
                         工作地<span class="badge bg-danger rounded-pill ms-1" v-show="cityActiveCount">{{cityActiveCount}}</span>
                     </a>
                     <ul class="dropdown-menu scrolly" aria-labelledby="cityDropdown">
-                        <li v-for="[city, count] of cityHash" :key="city">
+                        <li v-for="(city) of cityList" :key="city">
                             <a class="dropdown-item dropitem" href="#" @click="cityClicked($event,city)">{{city}}</a>
                         </li>
                     </ul>
@@ -48,44 +48,43 @@
                 </div>
             </div>
         </div>
+    </nav>
+    <!-- Modal -->
+    <div class="modal" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="aboutModalLabel">事求人開放資料地圖<span class="d-none d-lg-inline">-公務人員版的104職缺地圖</span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="h6">使用說明：</p>
+                    <ul>
+                        <li>依職缺地址轉為坐標展示於地圖</li>
+                        <li>可使用下拉選單篩選工作地及職系(區分行政類及技術類)</li>
+                        <li>點選地圖(或列表)上職缺，顯示職缺資訊(或位置)</li>
+                        <li >列表上地址標註<span class="text-danger">紅色</span>表示坐標可能有誤</li>
+                        <li>桌面及行動裝置響應式設計</li>
+                    </ul>
 
-        <!-- Modal -->
-        <div class="modal" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true" >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title fw-bold" id="aboutModalLabel">事求人開放資料地圖<span class="d-none d-lg-inline">-公務人員版的104職缺地圖</span></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="h6">使用說明：</p>
-                        <ul>
-                            <li>依職缺地址轉為坐標展示於地圖</li>
-                            <li>可使用下拉選單篩選工作地及職系(區分行政類及技術類)</li>
-                            <li>點選地圖(或列表)上職缺，顯示職缺資訊(或位置)</li>
-                            <li >列表上地址標註<span class="text-danger">紅色</span>表示坐標可能有誤</li>
-                            <li>桌面及行動裝置響應式設計</li>
-                        </ul>
-
-                        <hr>
-                        <p>Release Notes - 2024-12-29</p>
-                        <ul>
-                            <li>採前後端分離，並部署於Azure雲端</li>
-                            <li>前端：vue3、vue3-openlayers、bootstrap5</li>
-                            <li>後端：C#、ASP.NET Core Web API、MSSQL(AzureSQL)</li>
-                            <li>AzureFunction排程撈取開放資料</li>
-                            <li>HereMap Geocoding Api轉為坐標</li>  
-                        </ul>
-                        <p>原始碼詳見<a href="https://github.com/bingss/dgpamapf" target="_blank" rel="noreferrer noopener">GitHub</a></p>
-                    </div>
-                </div>  
+                    <hr>
+                    <p>Release Notes - 2024-12-29</p>
+                    <ul>
+                        <li>採前後端分離，並部署於Azure雲端</li>
+                        <li>前端：vue3、vue3-openlayers、bootstrap5</li>
+                        <li>後端：C#、ASP.NET Core Web API、MSSQL(AzureSQL)</li>
+                        <li>AzureFunction排程撈取開放資料</li>
+                        <li>HereMap Geocoding Api轉為坐標</li>  
+                    </ul>
+                    <p>原始碼詳見<a href="https://github.com/bingss/dgpamapf" target="_blank" rel="noreferrer noopener">GitHub</a></p>
+                </div>
+                
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
-            </div>
+            </div> 
         </div>
-    </nav>
-
+    </div>
 </div>
 
     
@@ -113,7 +112,8 @@
     });
 
 
-    const cityHash = ref(new Map())
+    // const cityHash = ref(new Map())
+    const cityList = ref(new Array())
     const normalSysHash = ref(new Map())
     const techSysHash = ref(new Map())
     
@@ -124,12 +124,12 @@
         // JobArray分類:工作縣市,行政技術職系
         for (let feature of jobFeatureArray.value) {
             let city = feature.get('worK_PLACE_TYPE')
-            
-            if (cityHash.value.has(city)) {
-                cityHash.value.set(city, cityHash.value.get(city) + 1);
-            } else {
-                cityHash.value.set(city, 1);
-            }
+            cityList.value.push(city)
+            // if (cityHash.value.has(city)) {
+            //     cityHash.value.set(city, cityHash.value.get(city) + 1);
+            // } else {
+            //     cityHash.value.set(city, 1);
+            // }
 
             let sysName = feature.get('sysnam')
             if (normalSysSet.has(sysName)) {
@@ -149,6 +149,7 @@
         cityActiveCount.value = target.classList.contains('active') ? cityActiveCount.value-1:cityActiveCount.value+1;
         target?.classList.toggle('active'); // 切換 active class
         eventBus.emit('city-filter-updated', cityName);
+
     }
 
     const normalSysActiveCount = ref(0);
@@ -159,8 +160,7 @@
         let currentSysName =target.textContent?.split('(')[0]
         if(!currentSysName) return
         if (normalSysSet.has(currentSysName))
-        {
-            
+        {cityList
             //行政職系
             normalSysActiveCount.value = target.classList.contains('active') ? normalSysActiveCount.value-1:normalSysActiveCount.value+1;
         }
@@ -175,14 +175,13 @@
 
     
 
+    
 
     // 組件掛載時註冊事件監聽
     onMounted(() => {
-        eventBus.on('job-loaded-updated', handleJobFeatureLoaded)
-        const aboutModal = new Modal(document.getElementById('aboutModal')!, {
-            keyboard: false
-        })
-        aboutModal.show();
+        eventBus.on('job-loaded-updated', handleJobFeatureLoaded);
+
+
     })
     // 組件卸載時移除事件監聽
     onUnmounted(() => {
