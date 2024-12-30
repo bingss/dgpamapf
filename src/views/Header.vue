@@ -95,7 +95,6 @@
     import eventBus from '@/utils/eventBus';
     import { Feature } from 'ol';
     import { normalSysSet } from '@/utils/sysNameSet';
-    import { Modal } from 'bootstrap';
     import axios from 'axios';
 
     // 定義API的URL
